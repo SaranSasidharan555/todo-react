@@ -1,7 +1,7 @@
 import React from 'react'
 
 function List({data}) {
-  console.log(data)
+  
   return (
     <div>
       <h2>Listing</h2>
@@ -13,7 +13,7 @@ function List({data}) {
         
         {data.map((item, index) => (
           <tr>
-            <td>{item.name}</td>
+            <td>{item.title}</td>
             <td>{item.description}</td>
           </tr>
         ))}
