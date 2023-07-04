@@ -1,47 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-function Create({ setData }) {
+function Create({ fetchContacts }) {
   const { register, handleSubmit, reset } = useForm();
-  const [csrfToken, setCsrfToken] = useState('');
+  
 
-  useEffect(() => {
-    async function fetchCsrfToken() {
-      try {
-        const response = await fetch('http://localhost:8000/csrf-cookie');
-        if (response.ok) {
-          setCsrfToken(response.headers.get('X-CSRF-TOKEN'));
-        } else {
-          console.log('CSRF token fetch failed');
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchCsrfToken() {
+  //     try {
+  //       const response = await fetch('http://localhost:8000/csrf-cookie');
+  //       if (response.ok) {
+  //         setCsrfToken(response.headers.get('X-CSRF-TOKEN'));
+  //       } else {
+  //         console.log('CSRF token fetch failed');
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
 
-    fetchCsrfToken();
-  }, []);
+  //   fetchCsrfToken();
+  // }, []);
 
-  const onSubmit = async (task) => {
+  const onSubmit = async (register) => {
     try {
-      const res = await fetch('http://localhost:8000/createTask', {
+      const res = await fetch('http://localhost:8000/api/createTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': csrfToken,
+          // 'X-CSRF-TOKEN': csrfToken,
         },
-        body: JSON.stringify(task),
+        body: JSON.stringify(register),
       });
 
+
       if (res.ok) {
-        const newTask = await res.json();
-        setData([...task, newTask]);
+        // const newTask = await res.json();
+        // setData([...task, res]);
         reset();
+        fetchContacts();
       } else {
-        console.log('Task creation failed');
+        alert('Task creation failed');
       }
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -70,7 +72,7 @@ function Create({ setData }) {
               />
             </div>
             <div className="m-3">
-              <input type="hidden" name="_token" value={csrfToken} />
+          
               <button className="form-control btn btn-success" type="submit">
                 Submit
               </button>

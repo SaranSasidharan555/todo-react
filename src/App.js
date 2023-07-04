@@ -12,7 +12,7 @@ function App() {
 
   const fetchContacts = async () => {
     try {
-      const res = await fetch("http://localhost:8000/view");
+      const res = await fetch("http://localhost:8000/api/view");
       const data = await res.json();
       setData(data.data);
     } catch (error) {
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="container">
-      <Create setData={setData} />
+      <Create fetchContacts={fetchContacts} />
       <List data={data} />
     </div>
   );
