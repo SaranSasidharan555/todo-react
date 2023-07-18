@@ -5,22 +5,7 @@ function Create({ fetchContacts }) {
   const { register, handleSubmit, reset } = useForm();
   
 
-  // useEffect(() => {
-  //   async function fetchCsrfToken() {
-  //     try {
-  //       const response = await fetch('http://localhost:8000/csrf-cookie');
-  //       if (response.ok) {
-  //         setCsrfToken(response.headers.get('X-CSRF-TOKEN'));
-  //       } else {
-  //         console.log('CSRF token fetch failed');
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
 
-  //   fetchCsrfToken();
-  // }, []);
 
   const onSubmit = async (register) => {
     try {

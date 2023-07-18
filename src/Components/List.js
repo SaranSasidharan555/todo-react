@@ -1,20 +1,23 @@
 import React from 'react'
 
-function List({data}) {
+function List({data,fetchContacts,UpdateContact}) {
   
   const deleteContact = async (id) => {
 
-    const res = await fetch(`http://localhost:3005/contacts/${id}`, {
-      method: "DELETE",
+    const res = await fetch(`http://localhost:8000/api/delete/${id}`, {
+      method: "POST",
     });
 
-    if (res.status === 200) {
-      let newContact = contacts.filter((singleContact) => {
+    if (res.ok) {
+      fetchContacts();
+
+      /*let newContact = data.filter((singleContact) => {
         return singleContact.id !== id;
-      });
-      setContacts(newContact);
+      });*/
+    
     }
   };
+
   
   return (
     <div>
@@ -31,8 +34,14 @@ function List({data}) {
           <tr>
             <td>{item.title}</td>
             <td>{item.description}</td>
-            <td>{item.id}</td>
-            <td><button type='button' onClick={()=>{deleteContact(id)}}>Delete</button>{item.id}</td>
+            <td><button 
+              onClick={()=>{deleteContact(item.id)}}
+              type="button"
+              className="btn btn-outline-danger">Delete</button></td>
+            <td><button 
+              onClick={()=>{UpdateContact(item.id)}}
+              type="button"
+              className="btn btn-outline-danger">Update</button></td>
           </tr>
         ))}
 
