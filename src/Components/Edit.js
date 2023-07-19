@@ -4,7 +4,8 @@ import { useForm } from 'react-hook-form';
 function Edit({ create, fetchContacts }) {
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = async (formData) => { // Changed parameter name from 'register' to 'formData'
+  const editSubmit = async (formData) => { // Changed parameter name from 'register' to 'formData'
+
     try {
       const res = await fetch(`http://localhost:8000/api/updateTask/${create.id}`, {
         method: 'POST',
@@ -28,11 +29,11 @@ function Edit({ create, fetchContacts }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(editSubmit)}>
         <div className="m-3">
           <input
             type="text"
-            value={create.title}
+            defaultValue= {create.title}
             className="form-control"
             placeholder="Title"
             {...register('name')}
@@ -42,7 +43,7 @@ function Edit({ create, fetchContacts }) {
           <input
             type="text"
             className="form-control"
-            value={create.description}
+            defaultValue={create.description}
             placeholder="Description"
             {...register('description')}
           />
