@@ -7,7 +7,7 @@ import Edit from './Components/Edit';
 function App() {
   const [data, setData] = useState([]);
   const [create, setcreate] = useState([]);
-
+  const [showcreate, setshowcreate] = useState(true);
   useEffect(() => {
     fetchContacts();
   }, []);
@@ -29,7 +29,8 @@ function App() {
   
     if (res.ok) {
       const row = await res.json();
-     // console.log(row.data);
+      setshowcreate(false);
+   console.log(showcreate);
       setcreate(row.data);
       console.log(create);
     }
@@ -37,9 +38,11 @@ function App() {
 
   return (
     <div className="container">
+
       
-  <Create fetchContacts={fetchContacts} /> 
-  <Edit fetchContacts={fetchContacts} create={create}/>
+           {showcreate ?   <Create fetchContacts={fetchContacts} /> :  <Edit setshowcreate={setshowcreate} fetchContacts={fetchContacts} create={create}/>}
+
+ 
       <List data={data} fetchContacts={fetchContacts} UpdateContact={UpdateContact}/>
     </div>
   );

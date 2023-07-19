@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-function Edit({ create, fetchContacts }) {
+function Edit({ create, fetchContacts,setshowcreate }) {
   const { register, handleSubmit, reset } = useForm();
 
   const editSubmit = async (formData) => { // Changed parameter name from 'register' to 'formData'
@@ -19,6 +19,7 @@ function Edit({ create, fetchContacts }) {
       if (res.ok) {
         reset();
         fetchContacts();
+        setshowcreate(true);
       } else {
         alert('Task update failed');
       }
@@ -49,7 +50,7 @@ function Edit({ create, fetchContacts }) {
           />
         </div>
         <div className="m-3">
-          <button className="form-control btn btn-success" type="submit">
+          <button className="form-control btn btn-success"  type="submit">
             Submit
           </button>
         </div>
